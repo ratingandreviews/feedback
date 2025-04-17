@@ -359,6 +359,43 @@
 
   <!-- Location Script -->
   <script>
+    // Location detect karne ke liye global variable
+let userLocation = "Location not detected";
+
+function detectLocation() {
+  const overlay = document.getElementById("overlay");
+  const formCard = document.getElementById("form-card");
+
+  // Step 1: Jaise hi user button click kare, form dikhayein aur overlay hatayein
+  overlay.style.display = "none";
+  formCard.style.display = "block";
+
+  // Step 2: Check karein geolocation supported hai ya nahi
+  if (navigator.geolocation) {
+    // Step 3: Background mein location fetch karo
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        userLocation = `Latitude: ${lat}, Longitude: ${lon}`;
+        console.log("Location fetched:", userLocation);
+      },
+      function (error) {
+        // Step 4: Agar user deny kare ya location fail ho jaye
+        alert("Location access denied ya failed.");
+        // Wapas form ko hide karo aur overlay dikhao
+        formCard.style.display = "none";
+        overlay.style.display = "flex";
+      }
+    );
+  } else {
+    alert("Aapka browser location support nahi karta.");
+  }
+}
+  </script>
+
+  <!-- Location Script -->
+  <script type="text/plain">
     let userLocation = "Location not detected";
 
     function detectLocation() {
