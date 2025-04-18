@@ -186,7 +186,7 @@
 <body>
 
   <!-- Location Overlay -->
-  <div id="overlay" style="display: flex;">
+  <div id="overlay" style="display: none;">
     <div class="overlay-content">
       <!-- First Display -->
       <div class="container">
@@ -203,7 +203,7 @@
   </div>
 
   <!-- Main Feedback Form -->
-  <div class="card" id="form-card" style="display: none;">
+  <div class="card" id="form-card">
     <div class="container">
       <div class="logo">
         <img id="" src="" alt="2nd Company Logo" style="display: none;">
@@ -290,8 +290,93 @@
   </div>
     
   </div>
+  
+  <script>
+  // Company logos array
+  const companyLogos = [
+    {
+      name: "blum",
+      logo: "https://website2l.github.io/allweb/FB_IMG_1744138475627.jpg",
+      ColorTheme: "https://website2l.github.io/allweb/blum-color-Theme.css",
+    },
+    {
+      name: "double-cheez",
+      logo: "https://website2l.github.io/allweb/double-cheez.jpg",
+      ColorTheme: "https://website2l.github.io/allweb/double-cheez-color-Theme.css",
+    },
+    {
+      name: "14th-street",
+      logo: "https://website2l.github.io/allweb/14th-Street.jpg",
+      ColorTheme: "https://website2l.github.io/allweb/14th-street-color-Theme.css",
+    },
+    {
+      name: "kfc",
+      logo: "https://website2l.github.io/allweb/kfc.jpg",
+      ColorTheme: "https://ratingandreviews.github.io/feedback/css-file/kfc.css",
+    },
+    {
+      name: "mcdonalds",
+      logo: "https://website2l.github.io/allweb/McDonalds.jpg",
+      ColorTheme: "https://ratingandreviews.github.io/feedback/css-file/McDonalds.css",
+    },
+    {
+      name: "dominos",
+      logo: "https://website2l.github.io/allweb/dominos.jpg",
+      ColorTheme: "https://ratingandreviews.github.io/feedback/css-file/dominos.css",
+    },
+    {
+      name: "alkaif",
+      logo: "https://website2l.github.io/allweb/Al-Kaif.jpg",
+      ColorTheme: "https://website2l.github.io/allweb/alkaif-color-Theme.css",
+    },
+  ];
 
-<script>
+  // Get company parameter from URL
+  const params = new URLSearchParams(window.location.search);
+  const companyParam = params.get("company");
+
+  // HTML references (only 2nd content)
+  const logo2 = document.getElementById("companyLogo");
+  const name2 = document.getElementById("companyName");
+  const appleIcon = document.getElementById("apple-icon");
+  const favicon = document.getElementById("favicon");
+  const themeStylesheet = document.getElementById("themeStylesheet");
+
+  if (companyParam) {
+    const key = companyParam.toLowerCase();
+    const matchedCompany = companyLogos.find(c => c.name.toLowerCase() === key);
+
+    if (matchedCompany) {
+      const formattedName = key.charAt(0).toUpperCase() + key.slice(1);
+
+      // Set logo and name
+      logo2.src = matchedCompany.logo;
+      name2.textContent = formattedName;
+      appleIcon.href = matchedCompany.logo;
+      favicon.href = matchedCompany.logo;
+
+      // Apply theme
+      if (themeStylesheet) {
+        themeStylesheet.href = matchedCompany.ColorTheme;
+      }
+    } else {
+      name2.textContent = "Company not found";
+    }
+  } else {
+    name2.textContent = "No company specified";
+  }
+
+  // Optional functions (agar zarurat ho to rakhain)
+  function sendEmail() {
+    alert("Email sent!");
+  }
+
+  function sendWhatsApp() {
+    alert("WhatsApp message sent!");
+  }
+</script>
+
+<script type="text/plain">
   // New format array of objects
   const companyLogos = [
     {
@@ -450,6 +535,38 @@
 
   <!-- Location Script -->
   <script>
+    // Page load par direct location request
+    window.onload = function () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            console.log("User Location:", lat, lon);
+            // Yahan aap latitude/longitude ko kisi hidden field mein store kar sakte hain
+          },
+          function (error) {
+            alert("Location access deny ho gayi ya error aaya.");
+          }
+        );
+      } else {
+        alert("Aapka browser location ko support nahi karta.");
+      }
+    }
+
+    function sendEmail() {
+      // Placeholder: Email send logic
+      alert("Email send hone ka code yahan add karein.");
+    }
+
+    function sendWhatsApp() {
+      // Placeholder: WhatsApp send logic
+      alert("WhatsApp send hone ka code yahan add karein.");
+    }
+  </script>
+
+  <!-- Location Script -->
+  <script type="text/plain">
     // Location detect karne ke liye global variable
 let userLocation = "Location not detected";
 
